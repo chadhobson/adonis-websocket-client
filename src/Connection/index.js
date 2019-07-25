@@ -17,14 +17,6 @@ import Socket from '../Socket/index.js'
 import JsonEncoder from '../JsonEncoder/index.js'
 
 /**
- * Returns the ws protocol based upon HTTP or HTTPS
- *
- * @returns {String}
- *
- */
-const wsProtocol = (typeof window.location.protocol !== 'undefined' && window.location.protocol === 'https:') ? 'wss' : 'ws';
-
-/**
  * Connection class is used to make a TCP/Socket connection
  * with the server. It relies on Native Websocket browser
  * support.
@@ -37,8 +29,6 @@ const wsProtocol = (typeof window.location.protocol !== 'undefined' && window.lo
 export default class Connection extends Emitter {
   constructor (url, options) {
     super()
-
-    url = url || `${wsProtocol}://${window.location.host}`
 
     /**
      * Connection options
