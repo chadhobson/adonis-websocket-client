@@ -247,6 +247,8 @@ export default class Connection extends Emitter {
    * @private
    */
   _onOpen () {
+    this._reconnectionAttempts = 0;
+    
     if (process.env.NODE_ENV !== 'production') {
       debug('opened')
     }
@@ -591,8 +593,8 @@ export default class Connection extends Emitter {
     this.ws = new window.WebSocket(url)
     this.ws.onclose = (event) => this._onClose(event)
     this.ws.onerror = (event) => this._onError(event)
-    this.ws.onopen = (event) => this._onOpen(event)
     this.ws.onmessage = (event) => this._onMessage(event)
+    this.ws.onopen = (event) => this._onOpen(event)
 
     return this
   }
